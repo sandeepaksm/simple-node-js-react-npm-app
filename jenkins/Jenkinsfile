@@ -9,12 +9,17 @@ pipeline {
         }
         stage('Install') {
             steps {
-                dir('/home/azure/simple-node-js-react-npm-app') {
-                    echo 'Installing dependencies...'
-                    sh 'npm install'
-                }
+                // We removed the 'dir' block. 
+                // Jenkins will now work in its own safe folder.
+                echo 'Installing dependencies...'
+                sh 'npm install'
             }
         }
-
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                sh 'npm run build'
+            }
+        }
     }
 }
