@@ -1,25 +1,20 @@
 pipeline {
     agent any
-    environment {
-        CI = 'true'
-    }
+
     stages {
-        stage('Build') {
+        stage('Hello World') {
             steps {
-                sh 'npm install'
+                echo 'Hello, Sandeep! Jenkins is working.'
             }
         }
-        stage('Test') {
+        stage('Install') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                dir('/home/azure/simple-node-js-react-npm-app') {
+                    echo 'Installing dependencies...'
+                    sh 'npm install'
+                }
             }
         }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
-            }
-        }
+
     }
 }
